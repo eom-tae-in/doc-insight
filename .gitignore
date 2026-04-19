@@ -1,0 +1,69 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files
+.env
+.env.*
+!.env.example
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+
+# generated
+/src/generated/prisma
+
+# local uploads and user-provided documents
+/uploads/
+
+# local AI/tooling state
+/.mcp.json
+/.claude/settings.local.json
+/.playwright-mcp/
+/shrimp_data/
+
+# local scratch diagnostics
+/check_chunks.ts
+/create_chunks.ts
+/shrimp-rules.md
+
+# local screenshots
+/home-desktop.png
+/home-mobile.png
+/upload-mobile.png
+/upload-tablet.png
+
+# local logs
+*.log
+logs/
