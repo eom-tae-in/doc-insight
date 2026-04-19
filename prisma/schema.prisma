@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Enable pgvector extension
+model Extension {
+  name String @id
+
+  @@ignore
+}
+
+enum FileType {
+  PDF
+  TXT
+  MD
+}
+
+enum Status {
+  processing
+  completed
+  failed
+}
+
+model Document {
+  id        String          @id @default(cuid())
+  fileName  String
+  fileType  FileType
+  filePath  String?         // 실제 저장된 파일 경로 (타임스탐프 포함 가능)
+  status    Status          @default(processing)
+  content   String?
+  chunks    DocumentChunk[]
+  questions Question[]
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+
+  @@index([status])
+}
+
+model DocumentChunk {
+  id         String   @id @default(cuid())
+  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  documentId String
+  chunkIndex Int
+  text       String
+  embedding  Json?
+  answers    Answer[]
+  createdAt  DateTime @default(now())
+
+  @@index([documentId])
+  @@index([chunkIndex])
+}
+
+model Question {
+  id         String   @id @default(cuid())
+  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  documentId String
+  text       String
+  embedding  Json?
+  answer     Answer?
+  createdAt  DateTime @default(now())
+
+  @@index([documentId])
+}
+
+model Answer {
+  id         String          @id @default(cuid())
+  question   Question        @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  questionId String          @unique
+  text       String
+  chunks     DocumentChunk[]
+  createdAt  DateTime        @default(now())
+
+  @@index([questionId])
+}
