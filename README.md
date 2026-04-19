@@ -102,8 +102,6 @@ npm run build
 - [PRD](docs/PRD.md)
 - [TRD](docs/TRD.md)
 - [Roadmap](ROADMAP.md)
-- [Scripts Guide](docs/SCRIPTS.md)
-- [Ops Checklist](docs/OPS_CHECKLIST.md)
 
 ## 현재 한계
 
